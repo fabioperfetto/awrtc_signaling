@@ -8,4 +8,4 @@ WORKDIR /awrtc_signaling
 RUN rm -rf /awrtc_signaling_build
 RUN npm install
 CMD ["node", "server.js"]
-EXPOSE 80 443
+EXPOSE 80 5000

@@ -1,0 +1,21 @@
+db_migrate:
+  stage: pre-deploy
+  image: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
+  variables:
+    GIT_STRATEGY: none
+    DB_HOST: ${K8S_SECRET_DB_HOST}
+    DB_PASSWORD: ${K8S_SECRET_DB_PASSWORD}
+    DB_USERNAME: ${K8S_SECRET_DB_USERNAME}
+    DB_PORT: ${K8S_SECRET_DB_PORT}
+  before_script:
+    - cd /app
+  script:
+    - php artisan config:cache
+    - php artisan migrate:refresh --force
+    - php artisan db:seed || true
+  needs: [ "db_setup:mysql", "build"]
+  rules:
+    - when: always
+  tags:
+    - docker
+

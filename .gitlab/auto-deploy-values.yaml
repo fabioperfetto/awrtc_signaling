@@ -1,0 +1,60 @@
+deploymentApiVersion: apps/v1
+
+livenessProbe:
+  path: "/"
+  initialDelaySeconds: 15
+  timeoutSeconds: 15
+  scheme: "HTTP"
+  probeType: "httpGet"
+readinessProbe:
+  path: "/"
+  initialDelaySeconds: 5
+  timeoutSeconds: 3
+  scheme: "HTTP"
+  probeType: "httpGet"
+
+kind: Service
+
+metadata:
+
+  name: my-service
+
+spec:
+
+  selector:
+
+    app: MyApp
+
+  ports:
+
+    - name: web
+
+      protocol: TCP
+
+      port: 5000
+
+      targetPort: 5000
+
+    - name: websocket
+
+      protocol: TCP
+
+      port: 12776
+
+      targetPort: 12776
+ingress:
+enabled: true
+path: "/"
+tls:
+enabled: true
+acme: true
+secretName: ""
+useDefaultSecret: false
+annotations:
+nginx.ingress.kubernetes.io/ingress.class: "nginx"
+nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+nginx.ingress.kubernetes.io/proxy-connect-timeout: "3000"
+nginx.ingress.kubernetes.io/proxy-send-timeout: "3000"
+nginx.ingress.kubernetes.io/proxy-read-timeout: "3000"
+nginx.ingress.kubernetes.io/client-max-body-size: "500m"
+nginx.ingress.kubernetes.io/proxy-buffering: "on"
