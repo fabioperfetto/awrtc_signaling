@@ -13,35 +13,35 @@ readinessProbe:
   scheme: "HTTP"
   probeType: "httpGet"
 
-kind: Service
+#kind: Service
 
-metadata:
+#metadata:
 
-  name: my-service
+#  name: my-service
 
-spec:
+#spec:
 
-  selector:
+#  selector:
 
-    app: MyApp
+#    app: MyApp
 
-  ports:
+#  ports:
 
-    - name: web
+#    - name: web
 
-      protocol: TCP
+#      protocol: TCP
 
-      port: 5000
+#      port: 5000
 
-      targetPort: 5000
+#      targetPort: 5000
 
-    - name: websocket
+#    - name: websocket
 
-      protocol: TCP
+#      protocol: TCP
 
-      port: 12776
+#      port: 12776
 
-      targetPort: 12776
+#      targetPort: 12776
 ingress:
 enabled: true
 path: "/"
